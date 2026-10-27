@@ -210,7 +210,7 @@ public class RabbitAdminService {
         return texto == null || texto.isBlank();
     }
 
-    private static int contar(Properties propiedades, String clave) {
+    private static int contar(Properties propiedades, Object clave) {
         if (propiedades == null) {
             return -1;
         }
