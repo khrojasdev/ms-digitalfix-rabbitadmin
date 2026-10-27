@@ -7,6 +7,32 @@ spring:
     username: ${RABBITMQ_USER:guest}
     password: ${RABBITMQ_PASSWORD:guest}
 
+# Colas y exchanges del sistema que se vigilan (GET /queues y GET /exchanges).
+rabbitadmin:
+  colas:
+    - nombre: ordenes.auditoria.queue
+      dlq: ordenes.auditoria.dlq
+      servicio: ms-digitalfix-audit
+    - nombre: usuarios.auditoria.queue
+      dlq: usuarios.auditoria.dlq
+      servicio: ms-digitalfix-audit
+    - nombre: ordenes.reportes.queue
+      dlq: ordenes.reportes.dlq
+      servicio: ms-digitalfix-report
+    - nombre: ordenes.avisos.queue
+      dlq: ordenes.avisos.dlq
+      servicio: ms-digitalfix-notify
+    - nombre: notify.stock.queue
+      dlq: notify.stock.dlq
+      servicio: ms-digitalfix-notify
+    - nombre: catalogo.stock.ordenes.queue
+      dlq: catalogo.stock.ordenes.dlq
+      servicio: ms-digitalfix-catalog
+  exchanges:
+    - ordenes.negocio.exchange
+    - catalogo.stock.exchange
+    - usuarios.negocio.exchange
+
 server:
   port: ${PUERTO:8087}
 

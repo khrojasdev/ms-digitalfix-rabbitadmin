@@ -2,6 +2,7 @@ package cl.duoc.digitalfix.rabbitadmin.config;
 
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
  * eliminar colas, exchanges y bindings sobre el broker en tiempo de ejecucion.
  */
 @Configuration
+@EnableConfigurationProperties(PropiedadesAdministrador.class)
 public class RabbitAdminConfig {
 
     @Bean

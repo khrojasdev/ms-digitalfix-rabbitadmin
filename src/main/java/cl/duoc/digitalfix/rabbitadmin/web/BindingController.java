@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,6 +35,17 @@ public class BindingController {
         return RespuestaOperacion.creado("binding", req.cola() + " <- " + req.exchange());
     }
 
+    /**
+     * DELETE /bindings?cola=...&exchange=...&routingKey=... (forma recomendada:
+     * algunos clientes HTTP no mandan cuerpo en un DELETE).
+     */
+    @DeleteMapping(params = {"cola", "exchange"})
+    public RespuestaOperacion eliminarPorParametros(@RequestParam String cola, @RequestParam String exchange,
+                                                    @RequestParam(required = false) String routingKey) {
+        return eliminar(new BindingRequest(cola, exchange, routingKey));
+    }
+
+    /** DELETE /bindings con el mismo cuerpo que se uso para crearlo. */
     @DeleteMapping
     public RespuestaOperacion eliminar(@Valid @RequestBody BindingRequest req) {
         admin.eliminarBinding(req);
